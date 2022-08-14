@@ -1,11 +1,11 @@
 #ifndef SRC_MY_STRING_H_
 #define SRC_MY_STRING_H_
 
-#include <stdlib.h>
 #include <stdarg.h>
+#include <stdlib.h>
 
 #define my_size_t unsigned long long
-#define my_NULL ((void*)0)
+#define my_NULL ((void *)0)
 
 // First part
 void *my_memchr(const void *str, int c, my_size_t n);

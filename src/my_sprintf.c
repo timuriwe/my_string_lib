@@ -36,7 +36,7 @@ char* print_char(char* str, flag_t* flags, char type, va_list* input) {
 }
 
 char* print_string(char* str, flag_t* flags, va_list* input) {
-  char *symbol = va_arg(*input, char*);
+  char* symbol = va_arg(*input, char*);
   if (symbol == NULL) {
     char* null_message = "(null)";
     symbol = null_message;
@@ -53,7 +53,8 @@ char* print_string(char* str, flag_t* flags, va_list* input) {
       str++;
     }
   }
-  for (unsigned int i = 0; (i < (unsigned)flags->precision) && (symbol[i] != '\0'); i++) {
+  for (unsigned int i = 0;
+       (i < (unsigned)flags->precision) && (symbol[i] != '\0'); i++) {
     *str = symbol[i];
     str++;
   }
@@ -71,25 +72,25 @@ char* print_number(char* str, flag_t* flags, char type, va_list* input) {
   char buffer[256];
 
   if (type == 'f') {
-      my_ftos(buffer, va_arg(*input, double), flags);
+    my_ftos(buffer, va_arg(*input, double), flags);
   } else if (type == 'u') {
-      unsigned long input_data;
-      if (flags->is_long == 1)
-        input_data = (unsigned long)va_arg(*input, unsigned long);
-      else if (flags->is_short == 1)
-        input_data = (unsigned short)va_arg(*input, int);
-      else
-        input_data = (unsigned int)va_arg(*input, unsigned int);
-      my_uitos(buffer, input_data, flags);
+    unsigned long input_data;
+    if (flags->is_long == 1)
+      input_data = (unsigned long)va_arg(*input, unsigned long);
+    else if (flags->is_short == 1)
+      input_data = (unsigned short)va_arg(*input, int);
+    else
+      input_data = (unsigned int)va_arg(*input, unsigned int);
+    my_uitos(buffer, input_data, flags);
   } else {
-      long long int input_data;
-      if (flags->is_long == 1)
-        input_data = (long long)va_arg(*input, long);
-      else if (flags->is_short == 1)
-        input_data = (short)va_arg(*input, int);
-      else
-        input_data = (int)va_arg(*input, int);
-      my_itos(buffer, input_data, flags);
+    long long int input_data;
+    if (flags->is_long == 1)
+      input_data = (long long)va_arg(*input, long);
+    else if (flags->is_short == 1)
+      input_data = (short)va_arg(*input, int);
+    else
+      input_data = (int)va_arg(*input, int);
+    my_itos(buffer, input_data, flags);
   }
 
   for (int i = 0; buffer[i] != '\0'; i++) {
@@ -109,7 +110,7 @@ unsigned long long my_pow(int base, int exp) {
   return result;
 }
 
-void my_itos(char *str, long long int num, flag_t* flags) {
+void my_itos(char* str, long long int num, flag_t* flags) {
   if (flags->precision == -1) {
     flags->precision = 1;
   }
@@ -133,7 +134,7 @@ void my_itos(char *str, long long int num, flag_t* flags) {
 
     while (complete_part != 0) {
       num_of_digits++;
-      complete_part = complete_part/10;
+      complete_part = complete_part / 10;
     }
     complete_part = num;
 
@@ -160,9 +161,9 @@ void my_itos(char *str, long long int num, flag_t* flags) {
     }
 
     do {
-      long long int c = my_pow(10, num_of_digits-1);
-      long long int b = complete_part/c;
-      complete_part = complete_part%c;
+      long long int c = my_pow(10, num_of_digits - 1);
+      long long int b = complete_part / c;
+      complete_part = complete_part % c;
       if (b < 0) {
         b = -b;
       }
@@ -190,7 +191,7 @@ void my_itos(char *str, long long int num, flag_t* flags) {
   *str = '\0';
 }
 
-void my_uitos(char *str, unsigned long num, flag_t* flags) {
+void my_uitos(char* str, unsigned long num, flag_t* flags) {
   if (flags->precision == -1) {
     flags->precision = 1;
   }
@@ -201,7 +202,7 @@ void my_uitos(char *str, unsigned long num, flag_t* flags) {
 
     while (complete_part > 0) {
       num_of_digits++;
-      complete_part = complete_part/10;
+      complete_part = complete_part / 10;
     }
     complete_part = num;
 
@@ -220,9 +221,9 @@ void my_uitos(char *str, unsigned long num, flag_t* flags) {
     }
 
     do {
-      unsigned long int c = my_pow(10, num_of_digits-1);
-      int b = complete_part/c;
-      complete_part = complete_part%c;
+      unsigned long int c = my_pow(10, num_of_digits - 1);
+      int b = complete_part / c;
+      complete_part = complete_part % c;
       *str = '0' + b;
       str++;
       num_of_digits--;
@@ -247,15 +248,15 @@ void my_uitos(char *str, unsigned long num, flag_t* flags) {
   *str = '\0';
 }
 
-void my_ftos(char *str, double num, flag_t* flags) {
+void my_ftos(char* str, double num, flag_t* flags) {
   if (flags->precision == -1) {
     flags->precision = 6;
   }
 
   if (num < 0.0) {
-    num -= 5.0/my_pow(10, flags->precision + 1);
+    num -= 5.0 / my_pow(10, flags->precision + 1);
   } else {
-    num += 5.0/my_pow(10, flags->precision + 1);
+    num += 5.0 / my_pow(10, flags->precision + 1);
   }
 
   int sign = 0;
@@ -278,7 +279,7 @@ void my_ftos(char *str, double num, flag_t* flags) {
 
   while (complete_part != 0) {
     num_of_digits++;
-    complete_part = complete_part/10;
+    complete_part = complete_part / 10;
   }
   complete_part = num;
   int width_difference = flags->width - (num_of_digits + flags->precision);
@@ -308,9 +309,9 @@ void my_ftos(char *str, double num, flag_t* flags) {
   }
 
   do {
-    long int c = my_pow(10, num_of_digits-1);
-    int b = complete_part/c;
-    complete_part = complete_part%c;
+    long int c = my_pow(10, num_of_digits - 1);
+    int b = complete_part / c;
+    complete_part = complete_part % c;
     if (b < 0) {
       b = -b;
     }
@@ -328,7 +329,7 @@ void my_ftos(char *str, double num, flag_t* flags) {
     fractional_part = fractional_part * 10.0;
     int b = fractional_part;
     fractional_part -= b;
-    b = b%10;
+    b = b % 10;
     if (b < 0) {
       b = -b;
     }
@@ -348,10 +349,10 @@ void my_ftos(char *str, double num, flag_t* flags) {
   *str = '\0';
 }
 
-int my_sprintf(char *str, const char *format, ...) {
+int my_sprintf(char* str, const char* format, ...) {
   va_list(input);
   va_start(input, format);
-  char *start_str = str;
+  char* start_str = str;
 
   flag_t flags;
   reset_flags(&flags);
@@ -377,7 +378,8 @@ int my_sprintf(char *str, const char *format, ...) {
         str = print_string(str, &flags, &input);
         spec_found = 1;
       }
-      if (*format == 'd' || *format == 'i' || *format == 'u' || *format == 'f') {
+      if (*format == 'd' || *format == 'i' || *format == 'u' ||
+          *format == 'f') {
         str = print_number(str, &flags, *format, &input);
         spec_found = 1;
       }
