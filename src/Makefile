@@ -6,7 +6,7 @@ all: string_report sprintf_report
 clean: 
 	rm -f *.o *.a *.css *.html *.gcno *.gcda *.gcov tests string_tests sprintf_tests
 
-libmy_string.a: my_string.o my_sprintf.o
+my_string.a: my_string.o my_sprintf.o
 	ar rc libmy_string.a my_string.o my_sprintf.o
 
 my_string.o: my_string.c
@@ -21,11 +21,11 @@ my_sprintf_tests.o:
 my_string_tests.o:
 	$(CC) -c my_string_tests.c
 
-sprintf_test: libmy_string.a my_sprintf_tests.o 
+sprintf_test: my_string.a my_sprintf_tests.o 
 	$(CC) my_sprintf_tests.o libmy_string.a -o sprintf_tests -lcheck -fprofile-arcs -lrt -lsubunit -lm 
 	./sprintf_tests
 
-string_test: libmy_string.a my_string_tests.o 
+string_test: my_string.a my_string_tests.o 
 	$(CC) my_string_tests.o libmy_string.a -o string_tests -lcheck -fprofile-arcs -lrt -lsubunit -lm
 	./string_tests
 
