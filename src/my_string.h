@@ -32,13 +32,4 @@ char *my_strtok(char *str, const char *delim);
 // Second part
 int my_sprintf(char *str, const char *format, ...);
 
-
-// Fourth part
-int my_sscanf(char *buf, char* format, ...);
-
-// Fifth part
-void *my_to_upper(const char *str);
-void *my_to_lower(const char *str);
-void *my_insert(const char *str, const char *src, my_size_t start_index);
-void *my_trim(const char *src, const char *trim_chars);
-#endif  // SRC_my_STRING_H_
+#endif  // SRC_MY_STRING_H_
